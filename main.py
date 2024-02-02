@@ -19,13 +19,6 @@ def get_image():
     return img
 
 
-def move_up():
-    print('да')
-    long = map_params['ll'].split()[0]
-    lat = str(float(map_params['ll'].split(',')[1]) + float(map_params['spn'].split(',')[1]))
-    map_params['ll'] = ','.join([long, lat])
-
-
 def big_small(n):
     map_params['spn'] = scale[n]
     get_image()
