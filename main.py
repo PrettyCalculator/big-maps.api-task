@@ -1,9 +1,10 @@
 import os
-import sys
 
 import pygame
 import requests
 
+scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,0.003", "0.006,0.006", "0.015,0.015",
+         "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8"]
 
 
 def get_image():
@@ -12,6 +13,8 @@ def get_image():
     with open(map_file, "wb") as file:
         file.write(resp.content)
     img = pygame.image.load('map.png')
+    screen.blit(pygame.image.load(map_file), (0, 0))
+    pygame.display.flip()
     os.remove('map.png')
     return img
 
@@ -23,37 +26,14 @@ def move_up():
     map_params['ll'] = ','.join([long, lat])
 
 
-def big(n):
-    map_request = "http://static-maps.yandex.ru/1.x/?ll=56.049898%2C53.449593&spn=" + f"{n}" + "," + f"{n}" + "&l=map"
-    response = requests.get(map_request)
-    map_file = "map.png"
-    with open(map_file, "wb") as file:
-        file.write(response.content)
-    screen = pygame.display.set_mode((600, 450))
-    screen.blit(pygame.image.load(map_file), (0, 0))
-    pygame.display.flip()
-    print(n)
-    if n > 0:
-        return n
-    return 0
+def big_small(n):
+    map_params['spn'] = scale[n]
+    get_image()
 
-def small(n):
-    map_request = "http://static-maps.yandex.ru/1.x/?ll=56.049898%2C53.449593&spn=" + f"{n}" + "," + f"{n}" + "&l=map"
-    response = requests.get(map_request)
-    map_file = "map.png"
-    with open(map_file, "wb") as file:
-        file.write(response.content)
-    screen = pygame.display.set_mode((600, 450))
-    screen.blit(pygame.image.load(map_file), (0, 0))
-    pygame.display.flip()
-    print(n)
-    if n > 0:
-        return n
-    return 0
 
 map_params = {
     'll': '56.049898,53.449593',
-    'spn': '0.001,0.002',
+    'spn': '0.002,0.002',
     'l': 'map'
 }
 
@@ -65,22 +45,19 @@ image = get_image()
 screen.blit(image, (0, 0))
 pygame.display.flip()
 running = True
-a = 0.002
+num = 3
 while running:
-    num = 0.001
     for event in pygame.event.get():
         keys = pygame.key.get_pressed()
         if event.type == pygame.QUIT:
             running = False
         if keys[pygame.K_PAGEUP]:
-            num = a - 0.001
-            a = big(num)
-            image = get_image()
+            if num > 0:
+                num -= 1
+                big_small(num)
         if keys[pygame.K_PAGEDOWN]:
-            print(21)
-            num = a + 0.01
-            a = big(num)
-            image = get_image()
-    screen.blit(image, (0, 0))
+            if num < 11:
+                num += 1
+                big_small(num)
 
 pygame.quit()
