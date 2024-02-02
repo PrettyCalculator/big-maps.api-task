@@ -11,8 +11,8 @@ def get_image():
     resp = requests.get(api_server, map_params)
     with open(map_file, "wb") as file:
         file.write(resp.content)
-    img = pygame.image.load('map.png')
-    os.remove('map.png')
+    img = pygame.image.load(map_file)
+    os.remove(map_file)
     return img
 
 
@@ -22,14 +22,48 @@ def big_small(n):
     image = get_image()
 
 
+def move_up():
+    global image
+    long = map_params['ll'].split(',')[0]
+    lat = float(map_params['ll'].split(',')[1]) + float(map_params['spn'].split(',')[1]) * 1.5
+    if lat < 84:
+        map_params['ll'] = ','.join([long, str(lat)])
+        image = get_image()
+
+
+def move_down():
+    global image
+    long = map_params['ll'].split(',')[0]
+    lat = float(map_params['ll'].split(',')[1]) - float(map_params['spn'].split(',')[1]) * 1.5
+    if lat > -84:
+        map_params['ll'] = ','.join([long, str(lat)])
+        image = get_image()
+
+
+def move_left():
+    global image
+    lat = map_params['ll'].split(',')[1]
+    long = float(map_params['ll'].split(',')[0]) - float(map_params['spn'].split(',')[1]) * 3
+    if long > -179:
+        map_params['ll'] = ','.join([str(long), lat])
+        image = get_image()
+
+
+def move_right():
+    global image
+    lat = map_params['ll'].split(',')[1]
+    long = float(map_params['ll'].split(',')[0]) + float(map_params['spn'].split(',')[1]) * 3
+    if long < 179:
+        map_params['ll'] = ','.join([str(long), lat])
+        image = get_image()
+
+
 map_params = {
     'll': '56.049898,53.449593',
     'spn': '0.002,0.002',
     'l': 'map'
 }
-
 api_server = "http://static-maps.yandex.ru/1.x/?"
-
 pygame.init()
 screen = pygame.display.set_mode((600, 450))
 image = get_image()
@@ -48,6 +82,14 @@ while running:
             if num < 11:
                 num += 1
                 big_small(num)
+        if keys[pygame.K_UP]:
+            move_up()
+        if keys[pygame.K_DOWN]:
+            move_down()
+        if keys[pygame.K_LEFT]:
+            move_left()
+        if keys[pygame.K_RIGHT]:
+            move_right()
     screen.blit(image, (0, 0))
     pygame.display.flip()
 
