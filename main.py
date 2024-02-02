@@ -1,5 +1,4 @@
 import os
-
 import pygame
 import requests
 
@@ -13,15 +12,14 @@ def get_image():
     with open(map_file, "wb") as file:
         file.write(resp.content)
     img = pygame.image.load('map.png')
-    screen.blit(pygame.image.load(map_file), (0, 0))
-    pygame.display.flip()
     os.remove('map.png')
     return img
 
 
 def big_small(n):
+    global image
     map_params['spn'] = scale[n]
-    get_image()
+    image = get_image()
 
 
 map_params = {
@@ -35,8 +33,6 @@ api_server = "http://static-maps.yandex.ru/1.x/?"
 pygame.init()
 screen = pygame.display.set_mode((600, 450))
 image = get_image()
-screen.blit(image, (0, 0))
-pygame.display.flip()
 running = True
 num = 3
 while running:
@@ -52,5 +48,7 @@ while running:
             if num < 11:
                 num += 1
                 big_small(num)
+    screen.blit(image, (0, 0))
+    pygame.display.flip()
 
 pygame.quit()
