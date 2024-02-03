@@ -9,6 +9,8 @@ scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,
 def get_image():
     map_file = 'map.png'
     resp = requests.get(api_server, map_params)
+    with open('response.json', 'wb') as file:
+        file.write(resp.content)
     with open(map_file, "wb") as file:
         file.write(resp.content)
     img = pygame.image.load(map_file)
@@ -65,8 +67,10 @@ map_params = {
 }
 api_server = "http://static-maps.yandex.ru/1.x/?"
 pygame.init()
-screen = pygame.display.set_mode((600, 450))
+screen = pygame.display.set_mode((600, 550))
 image = get_image()
+background_image = pygame.Surface((600, 100))
+background_image.fill('#FFEFD5')
 running = True
 num = 3
 while running:
@@ -91,6 +95,7 @@ while running:
         if keys[pygame.K_RIGHT]:
             move_right()
     screen.blit(image, (0, 0))
+    screen.blit(background_image, (0, 450))
     pygame.display.flip()
 
 pygame.quit()
