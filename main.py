@@ -1,9 +1,13 @@
 import os
 import pygame
 import requests
+from functions import load_image
+from change import Change
 
 scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,0.003", "0.006,0.006", "0.015,0.015",
          "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8"]
+
+background = ["map", "sat", "sat,skl"]
 
 
 def get_image():
@@ -73,6 +77,9 @@ background_image = pygame.Surface((600, 100))
 background_image.fill('#FFEFD5')
 running = True
 num = 3
+n1 = 0
+width, height = screen.get_size()
+change = Change()
 while running:
     for event in pygame.event.get():
         keys = pygame.key.get_pressed()
@@ -94,8 +101,17 @@ while running:
             move_left()
         if keys[pygame.K_RIGHT]:
             move_right()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            w = change.count(event.pos)
+            if w:
+                n1 += 1
+                map_params['l'] = background[n1]
+                if n1 == 2:
+                    n1 = -1
+                image = get_image()
     screen.blit(image, (0, 0))
     screen.blit(background_image, (0, 450))
+    change.update(screen)
     pygame.display.flip()
 
 pygame.quit()
