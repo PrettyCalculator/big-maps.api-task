@@ -1,11 +1,10 @@
 import os
 import pygame
 import requests
-from functions import load_image
 from change import Change
 
 scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,0.003", "0.006,0.006", "0.015,0.015",
-         "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8"]
+         "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8", "2,2", "5,5"]
 
 background = ["map", "sat", "sat,skl"]
 
@@ -90,7 +89,7 @@ while running:
                 num -= 1
                 big_small(num)
         if keys[pygame.K_PAGEDOWN]:
-            if num < 11:
+            if num < 13:
                 num += 1
                 big_small(num)
         if keys[pygame.K_UP]:
