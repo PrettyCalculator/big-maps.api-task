@@ -1,6 +1,7 @@
 import os
 import pygame
 import requests
+from search import Search
 
 scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,0.003", "0.006,0.006", "0.015,0.015",
          "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8"]
@@ -69,6 +70,7 @@ api_server = "http://static-maps.yandex.ru/1.x/?"
 pygame.init()
 screen = pygame.display.set_mode((600, 550))
 image = get_image()
+search = Search()
 background_image = pygame.Surface((600, 100))
 background_image.fill('#FFEFD5')
 running = True
@@ -78,6 +80,8 @@ while running:
         keys = pygame.key.get_pressed()
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            search.get_input(event.pos)
         if keys[pygame.K_PAGEUP]:
             if num > 0:
                 num -= 1
@@ -96,6 +100,7 @@ while running:
             move_right()
     screen.blit(image, (0, 0))
     screen.blit(background_image, (0, 450))
+    search.update(screen)
     pygame.display.flip()
 
 pygame.quit()
