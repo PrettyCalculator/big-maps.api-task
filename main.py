@@ -50,9 +50,9 @@ def move_right():
 
 
 pygame.init()
-screen = pygame.display.set_mode((600, 550))
+screen = pygame.display.set_mode((s.width, s.height))
 search = Search()
-background_image = pygame.Surface((600, 100))
+background_image = pygame.Surface((600, 150))
 background_image.fill('#FFEFD5')
 running = True
 num = 3

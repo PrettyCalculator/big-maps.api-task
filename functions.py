@@ -1,10 +1,11 @@
 import sys
 import pygame
 import os
+import settings as s
 
 
 def load_image(name, colorkey=None):
-    screen = pygame.display.set_mode((600, 550))
+    screen = pygame.display.set_mode((s.width, s.height))
     fullname = os.path.join('images', name)
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")

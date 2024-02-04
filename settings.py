@@ -6,8 +6,8 @@ import os
 def get_image():
     map_file = 'map.png'
     resp = requests.get(api_server, map_params)
-    with open('response.json', 'wb') as file:
-        file.write(resp.content)
+    # with open('response.json', 'wb') as file:
+    #     file.write(resp.content)
     with open(map_file, "wb") as file:
         file.write(resp.content)
     img = pygame.image.load(map_file)
@@ -24,3 +24,4 @@ map_params = {
 }
 
 image = get_image()
+width, height = 600, 600
