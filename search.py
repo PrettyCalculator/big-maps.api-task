@@ -51,6 +51,7 @@ class Search:
             s.map_params['pt'] = ""
             s.image = s.get_image()
 
+
     def change_available(self):
         self.available = not self.available
         if self.available:

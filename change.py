@@ -1,5 +1,8 @@
 from functions import load_image
 import pygame
+import settings as s
+
+background = ["map", "sat", "sat,skl"]
 
 
 class Change:
@@ -18,8 +21,8 @@ class Change:
             self.n += 1
             if self.n == 3:
                 self.n = 0
-            return True
-        return False
+            s.map_params['l'] = background[self.n]
+            s.image = s.get_image()
 
     def update(self, screen):
         screen.blit(self.background[self.n], (472, 515))

@@ -87,12 +87,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             w = change.count(event.pos)
             w1 = search.click(event.pos)
-            if w:
-                n1 += 1
-                s.map_params['l'] = background[n1]
-                if n1 == 2:
-                    n1 = -1
-                s.image = s.get_image()
+
     screen.blit(s.image, (0, 0))
     screen.blit(background_image, (0, 450))
     search.update(screen)
