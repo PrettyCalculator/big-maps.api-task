@@ -57,6 +57,7 @@ class Search:
     def click(self, pos):
         if self.res_rect.collidepoint(pos):
             s.map_params['pt'] = ""
+            self.get_address_image('')
             s.image = s.get_image()
 
     def change_available(self):
