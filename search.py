@@ -27,7 +27,7 @@ class Search:
 
         self.res = load_image("delete.png")
         self.res = pygame.transform.scale(self.res, (30, 30))
-        self.res_rect = self.image.get_rect(topleft=(5, 510))
+        self.res_rect = self.res.get_rect(topleft=(5, 510))
         font = pygame.font.Font(None, 30)
         self.text1 = font.render("Сброс", True, pygame.Color("#000000"))
 
@@ -50,7 +50,6 @@ class Search:
         if self.res_rect.collidepoint(pos):
             s.map_params['pt'] = ""
             s.image = s.get_image()
-
 
     def change_available(self):
         self.available = not self.available

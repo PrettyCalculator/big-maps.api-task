@@ -3,7 +3,6 @@ from search import Search
 import settings as s
 from change import Change
 
-
 scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,0.003", "0.006,0.006", "0.015,0.015",
          "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8"]
 background = ["map", "sat", "sat,skl"]
