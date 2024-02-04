@@ -3,6 +3,7 @@ from search import Search
 import settings as s
 from change import Change
 
+
 scale = ["0.0003,0.0003", "0.0005,0.0005", "0.001,0.001", "0.002,0.002", "0.003,0.003", "0.006,0.006", "0.015,0.015",
          "0.03,0.03", "0.07,0.07", "0.1,0.1", "0.5,0.5", "0.8,0.8"]
 background = ["map", "sat", "sat,skl"]
@@ -51,12 +52,12 @@ def move_right():
 
 pygame.init()
 screen = pygame.display.set_mode((600, 550))
-search = Search()
 background_image = pygame.Surface((600, 100))
 background_image.fill('#FFEFD5')
 running = True
 num = 3
 n1 = 0
+search = Search()
 change = Change()
 while running:
     for event in pygame.event.get():
@@ -85,6 +86,7 @@ while running:
             move_right()
         if event.type == pygame.MOUSEBUTTONDOWN:
             w = change.count(event.pos)
+            w1 = search.click(event.pos)
             if w:
                 n1 += 1
                 s.map_params['l'] = background[n1]
