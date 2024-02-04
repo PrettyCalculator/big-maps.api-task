@@ -19,7 +19,8 @@ api_server = "http://static-maps.yandex.ru/1.x/?"
 map_params = {
     'll': '56.049898,53.449593',
     'spn': '0.002,0.002',
-    'l': 'map'
+    'l': 'map',
+    'pt': '56.049898,53.449593,flag'
 }
 
 image = get_image()

@@ -60,6 +60,7 @@ class Search:
                 resp = requests.get(self.server, self.geocoder_params)
                 coords = ','.join(resp.json()["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split())
                 s.map_params['ll'] = coords
+                s.map_params['pt'] = coords + ',flag'
                 s.image = s.get_image()
             except Exception:
                 print('ошибка')
