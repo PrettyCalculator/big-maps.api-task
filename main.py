@@ -50,13 +50,13 @@ def move_right():
 
 
 pygame.init()
-screen = pygame.display.set_mode((s.width, s.height))
-search = Search()
-background_image = pygame.Surface((600, 150))
+screen = pygame.display.set_mode((600, 550))
+background_image = pygame.Surface((600, 100))
 background_image.fill('#FFEFD5')
 running = True
 num = 3
 n1 = 0
+search = Search()
 change = Change()
 while running:
     for event in pygame.event.get():
@@ -85,12 +85,8 @@ while running:
             move_right()
         if event.type == pygame.MOUSEBUTTONDOWN:
             w = change.count(event.pos)
-            if w:
-                n1 += 1
-                s.map_params['l'] = background[n1]
-                if n1 == 2:
-                    n1 = -1
-                s.image = s.get_image()
+            w1 = search.click(event.pos)
+
     screen.blit(s.image, (0, 0))
     screen.blit(background_image, (0, 450))
     search.update(screen)

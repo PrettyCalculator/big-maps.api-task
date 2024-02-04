@@ -32,6 +32,12 @@ class Search:
         self.find_image = load_image('search_button.png')
         self.find_image_rect = self.find_image.get_rect(topleft=self.find_image_pos)
 
+        self.res = load_image("delete.png")
+        self.res = pygame.transform.scale(self.res, (30, 30))
+        self.res_rect = self.res.get_rect(topleft=(5, 510))
+        font = pygame.font.Font(None, 30)
+        self.text1 = font.render("Сброс", True, pygame.Color("#000000"))
+
         self.geocoder_params = {
             'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
             'geocode': '',
@@ -45,6 +51,13 @@ class Search:
         screen.blit(self.find_image, self.find_image_pos)
         screen.blit(self.text_image, self.text_image_pos)
         screen.blit(self.full_address_image, self.full_address_image_pos)
+        screen.blit(self.text1, (40, 518))
+        screen.blit(self.res, (5, 510))
+
+    def click(self, pos):
+        if self.res_rect.collidepoint(pos):
+            s.map_params['pt'] = ""
+            s.image = s.get_image()
 
     def change_available(self):
         self.available = not self.available
@@ -66,8 +79,6 @@ class Search:
             try:
                 self.geocoder_params['geocode'] = self.text
                 resp = requests.get(self.server, self.geocoder_params)
-                with open('response.json', 'wb') as file:
-                    file.write(resp.content)
                 coords = ','.join(
                     resp.json()["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"][
                         "pos"].split())
