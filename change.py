@@ -25,5 +25,5 @@ class Change:
             s.image = s.get_image()
 
     def update(self, screen):
-        screen.blit(self.background[self.n], (472, 510))
+        screen.blit(self.background[self.n], (460, 510))
         screen.blit(self.image, (550, 510))
