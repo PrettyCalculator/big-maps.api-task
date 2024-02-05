@@ -86,6 +86,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             w = change.count(event.pos)
             w1 = search.click(event.pos)
+            w2 = search.address(event.pos)
 
     screen.blit(s.image, (0, 0))
     screen.blit(background_image, (0, 450))

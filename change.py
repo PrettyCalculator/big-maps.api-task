@@ -10,7 +10,7 @@ class Change:
         self.image = load_image("change_circle.png")
         self.image = pygame.transform.scale(self.image, (30, 30))
         self.image_rect = self.image.get_rect(topleft=(550, 510))
-        font = pygame.font.Font(None, 30)
+        font = pygame.font.SysFont('Times New Roman', 25)
         self.background = [font.render("Схема", True, pygame.Color("#000000")),
                            font.render("Спутник", True, pygame.Color('#000000')),
                            font.render("Гибрид", True, pygame.Color('#000000'))]
@@ -25,5 +25,5 @@ class Change:
             s.image = s.get_image()
 
     def update(self, screen):
-        screen.blit(self.background[self.n], (472, 515))
+        screen.blit(self.background[self.n], (472, 510))
         screen.blit(self.image, (550, 510))
