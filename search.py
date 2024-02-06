@@ -79,6 +79,9 @@ class Search:
         if self.res_rect.collidepoint(pos):
             s.map_params['pt'] = ""
             self.get_address_image('')
+            self.text = ''
+            self.display_text = ''
+            self.text_image = self.font.render(self.display_text, True, 'black')
             s.image = s.get_image()
 
     def address(self, pos):
